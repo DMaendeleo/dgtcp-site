@@ -1,8 +1,7 @@
 import type {Rapports} from '$lib/types/Rapport';
 import type {Annonces} from "$lib/types/Annonce";
+import {PAYLOAD_DOCKER_GRAPHQL_URL} from "$lib/static/staticPaths";
 
-import { env } from '$env/dynamic/private';   // server-only vars from Docker
-// import { env as publicEnv } from '$env/dynamic/public'; // PUBLIC_* vars
 
 export const load = async ({fetch}) => {
     const query = `
@@ -28,7 +27,6 @@ export const load = async ({fetch}) => {
       }
     }
   `;
-
 
     const mVariables = {
         "page": 1,
@@ -94,7 +92,7 @@ export const load = async ({fetch}) => {
 //     // where: year ? { year: { equals: Number(year) } } : undefined
 // }
 
-    const basePath = env.PAYLOAD_DOCKER_GRAPHQL_URL;
+    const basePath = PAYLOAD_DOCKER_GRAPHQL_URL;
     if (!basePath) {
         // helpful guard so you notice missing env in the container
         throw new Error('PAYLOAD_DOCKER_GRAPHQL_URL is not set');
