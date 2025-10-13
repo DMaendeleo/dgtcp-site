@@ -1,6 +1,9 @@
 import type {Rapports} from '$lib/types/Rapport';
 import type {Annonces} from "$lib/types/Annonce";
 
+import { env } from '$env/dynamic/private';   // server-only vars from Docker
+// import { env as publicEnv } from '$env/dynamic/public'; // PUBLIC_* vars
+
 export const load = async ({fetch}) => {
     const query = `
     query RapportsList($page: Int, $limit: Int, $sort: String) {
@@ -91,14 +94,20 @@ export const load = async ({fetch}) => {
 //     // where: year ? { year: { equals: Number(year) } } : undefined
 // }
 
-    const base = process.env.PAYLOAD_DOCKER_GRAPHQL_URL
-    const res = await fetch(`${base}`, {
+    const basePath = env.PAYLOAD_DOCKER_GRAPHQL_URL;
+    if (!basePath) {
+        // helpful guard so you notice missing env in the container
+        throw new Error('PAYLOAD_DOCKER_GRAPHQL_URL is not set');
+    }
+    console.log(basePath.toString())
+    // const base = process.env.PAYLOAD_DOCKER_GRAPHQL_URL
+    const res = await fetch(`${basePath}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({query, mVariables})
     });
 
-    const resNews = await fetch(`${base}`, {
+    const resNews = await fetch(`${basePath}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(
