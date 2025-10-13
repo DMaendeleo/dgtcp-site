@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ${PGDATA_PATH:-./pgdata}:/var/lib/postgresql/data
+      #- ~/docker/postgres/db:/var/lib/postgresql/data
+      # - /home/postgres/db:/var/lib/postgresql/data  # ← bind mount on disk
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # expose inside the network; optional external port:
+    ports:
+      - "127.0.0.1:5432:5432"
+
+
+  migrate:
+    build:
+      context: ./backend
+      target: build        # <- use your Dockerfile's *builder* stage
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      PAYLOAD_CONFIG_PATH: /app/src/payload.config.ts
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "npm run migrate"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # no 'image:' to avoid tag collisions
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 4000
+      # IMPORTANT: use service name 'postgres' not 0.0.0.0
+      DATABASE_URL: ${DATABASE_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+#      postgres:
+#        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./storage/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4001
+#      PORT: 80
+      # point the web app to the backend inside the docker network
+      PUBLIC_API_BASE_URL: http://backend:4000
+    ports:
+      - "80:4001"
+
+#volumes:
+#  pgdata:
