@@ -96,40 +96,13 @@ export const load = async ({fetch}) => {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({query, mVariables})
-        // body: JSON.stringify({ query, variables: { limit: 10 } })
     });
 
     const resNews = await fetch(`${base}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(
-            { query:
-                `query AnnoncesList( $page: Int, $limit: Int, $sort: String){
-       Annonces(page: $page, limit: $limit, sort: $sort) {
-          docs {
-              id
-              headline
-              subheadline
-              description
-              slug
-              localisation
-              year
-              image {
-                id
-                filename
-                mimeType
-                filesize
-                url
-              }
-              createdAt
-              updatedAt
-          }
-          page
-          totalPages
-          hasNextPage
-          hasPrevPage
-       }
-    }`, variables: nVariables})
+            { query: newsQuery, variables: nVariables})
     });
 
     const json = await res.json();

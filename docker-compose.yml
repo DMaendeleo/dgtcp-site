@@ -28,6 +28,7 @@ services:
       target: build        # <- use your Dockerfile's *builder* stage
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
       PAYLOAD_CONFIG_PATH: /app/src/payload.config.ts
     depends_on:
       postgres:
@@ -61,6 +62,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     environment:
+      PAYLOAD_DOCKER_GRAPHQL_URL: ${PAYLOAD_DOCKER_GRAPHQL_URL}
       NODE_ENV: production
       HOST: 0.0.0.0
       PORT: 4001
