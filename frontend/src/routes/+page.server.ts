@@ -98,7 +98,6 @@ export const load = async ({fetch}) => {
         throw new Error('PAYLOAD_DOCKER_GRAPHQL_URL is not set');
     }
     console.log(basePath.toString())
-    // const base = process.env.PAYLOAD_DOCKER_GRAPHQL_URL
     const res = await fetch(`${basePath}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
