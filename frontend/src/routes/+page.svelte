@@ -100,8 +100,11 @@
         title={`Mission principale\nde la DGTCP`}
 />
 <ReportSection currentPage={1} mReports={mRapports.Rapports.docs} totalPages={6}/>
-<News featured={mNews.Annonces.docs[0]} leftPosts={mNews.Annonces.docs.slice(0, 4)}
+
+<News allThePosts={mNews.Annonces.docs} featured={mNews.Annonces.docs[0]} leftPosts={mNews.Annonces.docs.slice(0, 4)}
       rightPosts={mNews.Annonces.docs.slice(5, 10)}/>
+
+
 <NewsLetter onSubscribe={subscribeNewsLetter}/>
 <Footer/>
 

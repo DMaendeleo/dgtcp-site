@@ -16,7 +16,7 @@
 
 <article
         aria-label="Post"
-        class="w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200"
+        class="w-full max-w-xl overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200"
         role="article"
 >
     <!-- Header -->
