@@ -9,7 +9,8 @@
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
     import type {Rapports} from "$lib/types/Rapport";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
-    import {subscribeNewsLetter} from "$lib/utils/utils";
+    import {subscribeNewsLetter} from "$lib/utils/genericUtils";
+
 
     export let data
     const {rapports, news} = data

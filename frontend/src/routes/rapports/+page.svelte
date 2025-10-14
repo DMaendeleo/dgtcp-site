@@ -7,7 +7,7 @@
 
     import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.png";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
-    import {subscribeNewsLetter} from "$lib/utils/utils";
+    import {subscribeNewsLetter} from "$lib/utils/genericUtils";
     // import type {Annonces} from "$lib/types/Annonce";
 
     export let data

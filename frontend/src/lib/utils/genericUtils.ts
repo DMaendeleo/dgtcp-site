@@ -17,7 +17,6 @@ export function shortDate(iso: string): string {
         });
 }
 
-
 export async function subscribeNewsLetter(email: string) {
     return await fetch('/api/subscribe', {
         method: 'POST',

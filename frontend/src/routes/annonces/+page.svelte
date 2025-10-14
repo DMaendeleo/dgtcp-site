@@ -4,10 +4,9 @@
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
     import Twitter from "$lib/layouts/twittercard/Twitter.svelte";
     import type {Annonces} from "$lib/types/Annonce";
-    import {PAYLOAD_MEDIA_HEADER_PATH_URL} from "$lib/utils/staticPaths";
-    import {shortDate, fullDate, subscribeNewsLetter} from "$lib/utils/utils";
+    import {shortDate, fullDate, subscribeNewsLetter} from "$lib/utils/genericUtils";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
-
+    import { env as publicEnv } from '$env/dynamic/public';
 
     export let data
     const {news} = data
@@ -96,7 +95,7 @@
                             {#each filtered.slice(0, 4) as n}
                                 <li class="flex gap-3">
                                     <img
-                                            src={PAYLOAD_MEDIA_HEADER_PATH_URL + n.image.url}
+                                            src={ publicEnv.PUBLIC_IMAGE_BASE_URL  + n.image.url}
                                             alt=""
                                             class="h-14 w-20 flex-none rounded-md object-cover ring-1 ring-slate-200"
                                     />
@@ -121,7 +120,7 @@
                         class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200"
                 >
                     <img
-                            src={PAYLOAD_MEDIA_HEADER_PATH_URL + oneNews.image.url}
+                            src={ publicEnv.PUBLIC_IMAGE_BASE_URL + oneNews.image.url}
                             alt="oneNews."
                             class="h-56 w-full object-cover sm:h-80"
                             loading="lazy"
