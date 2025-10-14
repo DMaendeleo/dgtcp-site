@@ -7,9 +7,11 @@
 
     // import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.jpg";
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
+    import type {Rapports} from "$lib/types/Rapport";
 
     export let data
-    const { rapports, news } = data
+    const {rapports, news} = data
+    const mRapports = rapports as Rapports
 
     // const mmmm = [
     //     {
@@ -88,11 +90,11 @@
 <Header/>
 <Welcome/>
 <MissionSection
+        description={`Mise en œuvre opérationnelle de la politique budgétaire en termes d'exécution des dépenses et de suivi des recettes perçues par les administrations financières`}
         logo="/images/dgtcp-logo.png"
         title={`Mission principale\nde la DGTCP`}
-        description={`Mise en œuvre opérationnelle de la politique budgétaire en termes d'exécution des dépenses et de suivi des recettes perçues par les administrations financières`}
 />
-<ReportSection mReports={rapports.Rapports.docs} currentPage={1} totalPages={6} />
-<News />
-<Footer />
+<ReportSection currentPage={1} mReports={mRapports.Rapports.docs} totalPages={6}/>
+<News/>
+<Footer/>
 

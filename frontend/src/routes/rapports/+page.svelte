@@ -3,109 +3,109 @@
 
     import Header from "$lib/layouts/dgtcp/Header.svelte";
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
+    import type {Rapports} from '$lib/types/Rapport';
 
-    import type { PageData } from './$types';
     import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.png";
     // import type {Annonces} from "$lib/types/Annonce";
-    // import type {Rapport, Rapports} from "$lib/types/Rapport";
-    export let data: PageData;
 
+    export let data
+    const { rapports } = data
 
-    const mRapports : Rapports = {
-        Rapports : {
-            docs : [{
-                id: 123,
-                title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                description: "RDC-BAD: Le Ministre des Finances\n" +
-                    "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                year: 2024,
-                dateUploaded: "sample s sample s",
-                filename: "sample s sample s",
-                mimeType: "sample s sample s",
-                filesize: "sample s sample s",
-                url: "sample s sample s",
-                createdAt: "2025-10-13T01:51:32.436Z",
-                updatedAt: "2025-10-13T01:51:32.436Z",
-            },
-                {
-                    id: 12,
-                    title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                    description:"RDC-BAD: Le Ministre des Finances\n" +
-                        "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                    year: 2025,
-                    dateUploaded: "sample xxxx",
-                    filename: "sample xxxx",
-                    mimeType: "sample xxxx",
-                    filesize: "sample xxxx",
-                    url: "sample xxxx",
-                    createdAt: "2025-10-13T01:51:32.436Z",
-                    updatedAt: "2025-10-13T01:51:32.436Z",
-                },
-                {
-                    id: 14,
-                    title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                    description:"RDC-BAD: Le Ministre des Finances\n" +
-                        "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                    year: 2026,
-                    dateUploaded: "sample xxxx",
-                    filename: "sample xxxx",
-                    mimeType: "sample xxxx",
-                    filesize: "sample xxxx",
-                    url: "sample xxxx",
-                    createdAt: "2025-10-13T01:51:32.436Z",
-                    updatedAt: "2025-10-13T01:51:32.436Z",
-                },
-                {
-                    id: 17,
-                    title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                    description:"RDC-BAD: Le Ministre des Finances\n" +
-                        "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                    year: 2023,
-                    dateUploaded: "sample xxxx",
-                    filename: "sample xxxx",
-                    mimeType: "sample xxxx",
-                    filesize: "sample xxxx",
-                    url: "sample xxxx",
-                    createdAt: "2025-10-13T01:51:32.436Z",
-                    updatedAt: "2025-10-13T01:51:32.436Z",
-                },
-                {
-                    id: 20,
-                    title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                    description:"RDC-BAD: Le Ministre des Finances\n" +
-                        "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                    year: 2022,
-                    dateUploaded: "sample xxxx",
-                    filename: "sample xxxx",
-                    mimeType: "sample xxxx",
-                    filesize: "sample xxxx",
-                    url: "sample xxxx",
-                    createdAt: "2025-10-13T01:51:32.436Z",
-                    updatedAt: "2025-10-13T01:51:32.436Z",
-                },
-                {
-                    id: 29,
-                    title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
-                    description:"RDC-BAD: Le Ministre des Finances\n" +
-                        "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
-                    year: 2020,
-                    dateUploaded: "sample xxxx",
-                    filename: "sample xxxx",
-                    mimeType: "sample xxxx",
-                    filesize: "sample xxxx",
-                    url: "sample xxxx",
-                    createdAt: "2025-10-13T01:51:32.436Z",
-                    updatedAt: "2025-10-13T01:51:32.436Z",
-                }
-            ],
-            pages : 1,
-            totalPages : 5,
-            hasNextPage : false,
-            hasPrevPage : false
-        }
-    }
+    const mRapports = rapports as Rapports
 
-    // const { rapports } = data;
+    // const mRapports : Rapports = {
+    //     Rapports : {
+    //         docs : [{
+    //             id: 123,
+    //             title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //             description: "RDC-BAD: Le Ministre des Finances\n" +
+    //                 "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //             year: 2024,
+    //             dateUploaded: "sample s sample s",
+    //             filename: "sample s sample s",
+    //             mimeType: "sample s sample s",
+    //             filesize: "sample s sample s",
+    //             url: "sample s sample s",
+    //             createdAt: "2025-10-13T01:51:32.436Z",
+    //             updatedAt: "2025-10-13T01:51:32.436Z",
+    //         },
+    //             {
+    //                 id: 12,
+    //                 title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //                 description:"RDC-BAD: Le Ministre des Finances\n" +
+    //                     "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //                 year: 2025,
+    //                 dateUploaded: "sample xxxx",
+    //                 filename: "sample xxxx",
+    //                 mimeType: "sample xxxx",
+    //                 filesize: "sample xxxx",
+    //                 url: "sample xxxx",
+    //                 createdAt: "2025-10-13T01:51:32.436Z",
+    //                 updatedAt: "2025-10-13T01:51:32.436Z",
+    //             },
+    //             {
+    //                 id: 14,
+    //                 title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //                 description:"RDC-BAD: Le Ministre des Finances\n" +
+    //                     "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //                 year: 2026,
+    //                 dateUploaded: "sample xxxx",
+    //                 filename: "sample xxxx",
+    //                 mimeType: "sample xxxx",
+    //                 filesize: "sample xxxx",
+    //                 url: "sample xxxx",
+    //                 createdAt: "2025-10-13T01:51:32.436Z",
+    //                 updatedAt: "2025-10-13T01:51:32.436Z",
+    //             },
+    //             {
+    //                 id: 17,
+    //                 title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //                 description:"RDC-BAD: Le Ministre des Finances\n" +
+    //                     "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //                 year: 2023,
+    //                 dateUploaded: "sample xxxx",
+    //                 filename: "sample xxxx",
+    //                 mimeType: "sample xxxx",
+    //                 filesize: "sample xxxx",
+    //                 url: "sample xxxx",
+    //                 createdAt: "2025-10-13T01:51:32.436Z",
+    //                 updatedAt: "2025-10-13T01:51:32.436Z",
+    //             },
+    //             {
+    //                 id: 20,
+    //                 title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //                 description:"RDC-BAD: Le Ministre des Finances\n" +
+    //                     "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //                 year: 2022,
+    //                 dateUploaded: "sample xxxx",
+    //                 filename: "sample xxxx",
+    //                 mimeType: "sample xxxx",
+    //                 filesize: "sample xxxx",
+    //                 url: "sample xxxx",
+    //                 createdAt: "2025-10-13T01:51:32.436Z",
+    //                 updatedAt: "2025-10-13T01:51:32.436Z",
+    //             },
+    //             {
+    //                 id: 29,
+    //                 title: "Manuel-de-procedures-DGTCP-2 2024 - 2025",
+    //                 description:"RDC-BAD: Le Ministre des Finances\n" +
+    //                     "Doudou Fwamba Likunde Li-Botayi et le Groupe de la Banque Africaine",
+    //                 year: 2020,
+    //                 dateUploaded: "sample xxxx",
+    //                 filename: "sample xxxx",
+    //                 mimeType: "sample xxxx",
+    //                 filesize: "sample xxxx",
+    //                 url: "sample xxxx",
+    //                 createdAt: "2025-10-13T01:51:32.436Z",
+    //                 updatedAt: "2025-10-13T01:51:32.436Z",
+    //             }
+    //         ],
+    //         pages : 1,
+    //         totalPages : 5,
+    //         hasNextPage : false,
+    //         hasPrevPage : false
+    //     }
+    // }
 
     const page = mRapports.Rapports?.page ?? 1;
     const totalPages = mRapports.Rapports?.totalPages ?? 1;

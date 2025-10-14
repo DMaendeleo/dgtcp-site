@@ -4,7 +4,6 @@
     import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.png";
 
     export let heading = "Rapports d'activités de la DGTCP";
-
     export let mReports: Rapport[] = []
 
     // Pagination demo props
@@ -16,7 +15,7 @@
 
 <section class="w-full bg-[#E6F4FA]">
     <div class="mx-auto max-w-[1200px] px-4 py-12 sm:py-14 md:py-16">
-<!--         Heading-->
+        <!--         Heading-->
         <header class="text-center">
             <h2
                     class="font-extrabold tracking-tight text-[clamp(1.9rem,6vw,3.5rem)]
@@ -31,9 +30,9 @@
 
         <!-- Cards grid -->
         <div
+                aria-label="Rapports d’activité"
                 class="mt-10 grid gap-8 md:grid-cols-2 lg:gap-10"
                 role="list"
-                aria-label="Rapports d’activité"
         >
             {#each mReports as singleReport (singleReport.id)}
 
@@ -66,7 +65,7 @@
                             {singleReport.description}
                         </p>
                         <p class="mt-1 text-sm text-[#1E66FF]/70">
-                            {singleReport.createdAt}
+                            {new Date(singleReport.dateUploaded ?? singleReport.createdAt).toLocaleDateString()}
                         </p>
 
                         <div class="mt-3 flex flex-wrap gap-3">
@@ -92,8 +91,8 @@
 
         <!-- Pagination -->
         <nav
-                class="mt-10 flex justify-center"
                 aria-label="Pagination des rapports"
+                class="mt-10 flex justify-center"
         >
             <div
                     class="flex items-center gap-3 rounded-2xl border-2 border-[#1E66FF]
@@ -101,9 +100,9 @@
             >
                 <!-- Current page pill -->
                 <span
+                        aria-current="page"
                         class="grid h-9 w-9 place-items-center rounded-xl border-2 border-[#1E66FF]
                  text-base font-extrabold text-[#1E66FF] bg-white"
-                        aria-current="page"
                 >
           {currentPage}
         </span>
@@ -122,13 +121,14 @@
 
                 <!-- Next arrow -->
                 <button
+                        aria-label="Page suivante"
                         class="ml-1 grid h-9 w-9 place-items-center rounded-xl border-2 border-[#1E66FF]
                  text-[#1E66FF] hover:bg-[#1E66FF]/5"
-                        aria-label="Page suivante"
                 >
                     <!-- simple chevron -->
-                    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 6l6 6-6 6" />
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="3" viewBox="0 0 24 24">
+                        <path d="M9 6l6 6-6 6"/>
                     </svg>
                 </button>
             </div>
