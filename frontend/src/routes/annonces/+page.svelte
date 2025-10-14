@@ -15,11 +15,14 @@
 
     // Mock data — swap with your API results later.
 
-    const years = [2022, 2023, 2024, 2025];
+    const years = [2023, 2024, 2025];
 
-    let selectedYear = 2025;
+    let selectedYear: number | 'all' = 'all';
 
-    $: filtered = mAnnonces.Annonces.docs.filter((a) => a.year === selectedYear);
+    $: filtered =
+        selectedYear === 'all'
+            ? mAnnonces.Annonces.docs
+            : mAnnonces.Annonces.docs.filter((a) => a.year === selectedYear);
 
 
 </script>
@@ -44,6 +47,16 @@
             class="mt-8 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none]"
     >
         <ul class="flex min-w-max items-center gap-4 text-sm font-semibold text-slate-500">
+            <li>
+                <button
+                        class="rounded-full px-3 py-1 transition hover:text-slate-900"
+                        class:!text-blue-700={selectedYear === 'all'}
+                        class:!bg-blue-50={selectedYear === 'all'}
+                        on:click={() => (selectedYear = 'all')}
+                >
+                   Tout
+                </button>
+            </li>
             {#each years as y}
                 <li>
                     <button
