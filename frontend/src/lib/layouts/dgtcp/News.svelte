@@ -4,102 +4,17 @@
     import news_one from "$lib/assets/dgtcp/news-one.jpg";
     import welcome from "$lib/assets/dgtcp/welcome.jpg";
     import news_secondary from "$lib/assets/dgtcp/news-secondary.jpg";
-
-
-    type Post = {
-        id: string;
-        title: string;
-        excerpt: string;
-        date: string;     // e.g. "September, 21 2025"
-        time?: string;    // e.g. "14:02"
-        location?: string;// e.g. "Kinshasa"
-        // image: string;
-    };
+    import type {Annonce} from "$lib/types/Annonce";
+    import {fullDate, shortDate, shortTime} from "$lib/utils/genericUtils";
+    import {env as publicEnv} from "$env/dynamic/public";
 
     export let heading = "Annonces et actualités";
 
     // Featured article (center)
-    export let featured: Post = {
-        id: "feat-1",
-        title: "Activité de la DGTCP, Avril à septembre 2025",
-        excerpt:
-            "Mise en œuvre opérationnelle de la politique et régie budgétaire en termes de la réforme à la DGTCP",
-        date: "September, 21 2025",
-        // image: "$lib/assets/news-one.jpg",
-    };
-
+    export let featured: Annonce
     // Side lists
-    export let leftPosts: Post[] = [
-        {
-            id: "l1",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes Lorem ipsum dolor sit amet…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-1.jpg",
-        },
-        {
-            id: "l2",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-2.jpg",
-        },
-        {
-            id: "l3",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-3.jpg",
-        },
-        {
-            id: "l4",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes Lorem ipsum dolor sit amet…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-1.jpg",
-        },
-    ];
-
-    export let rightPosts: Post[] = [
-        {
-            id: "r1",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-4.jpg",
-        },
-        {
-            id: "r2",
-            title:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            excerpt:
-                "Mise en œuvre opérationnelle de la politique budgétaire en termes…",
-            date: "September, 21 2025",
-            time: "14:02",
-            location: "Kinshasa",
-            image: "/images/news/thumb-5.jpg",
-        },
-    ];
+    export let leftPosts: Annonce[] = []
+    export let rightPosts: Annonce[] = []
 
     const blue = "#1E66FF";
 </script>
@@ -135,7 +50,7 @@
                     >
                         <img
                                 src={news_secondary}
-                                alt={p.title}
+                                alt={p.image.url}
                                 class="h-24 w-28 rounded object-cover"
                                 loading="lazy"
                                 decoding="async"
@@ -143,16 +58,16 @@
 
                         <div class="min-w-0">
                             <h3 class="text-[15px] font-semibold text-slate-800 line-clamp-2">
-                                {p.title}
+                                {p.headline}
                             </h3>
                             <p class="mt-1 text-[13px] text-slate-600 line-clamp-2">
-                                {p.excerpt}
+                                {p.subheadline}
                             </p>
 
                             <div class="mt-2 flex items-center gap-3 text-[12px] text-slate-500">
-                                <span>{p.date}</span>
-                                {#if p.time}<span>{p.time}</span>{/if}
-                                {#if p.location}<span>{p.location}</span>{/if}
+                                <span>{shortDate(p.createdAt)}</span>
+                                {#if p.createdAt}<span>{shortTime(p.createdAt)}</span>{/if}
+                                {#if p.localisation}<span>{p.localisation}</span>{/if}
 
                                 <!-- tiny share icon (red) -->
                                 <svg
@@ -165,9 +80,9 @@
                                         stroke-linejoin="round"
                                         aria-hidden="true"
                                 >
-                                    <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7" />
-                                    <path d="M16 6l-4-4-4 4" />
-                                    <path d="M12 2v14" />
+                                    <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/>
+                                    <path d="M16 6l-4-4-4 4"/>
+                                    <path d="M12 2v14"/>
                                 </svg>
                             </div>
                         </div>
@@ -181,28 +96,28 @@
             >
                 <!-- Image -->
                 <img
-                        src={news_one}
-                        alt={featured.title}
+                        alt={featured.id}
                         class="h-56 w-full rounded-t-2xl object-cover sm:h-64 md:h-72"
-                        loading="eager"
                         decoding="async"
+                        loading="eager"
+                        src={ publicEnv.PUBLIC_IMAGE_BASE_URL + featured.image.url}
                 />
 
                 <!-- Body -->
                 <div class="p-5 sm:p-6 md:p-7 text-center">
                     <h3 class="text-xl font-extrabold text-slate-900 sm:text-2xl">
-                        {featured.title}
+                        {featured.headline}
                     </h3>
 
                     <p
                             class="mx-auto mt-2 max-w-[70ch] text-base text-slate-700
                    sm:text-lg md:text-xl"
                     >
-                        {featured.excerpt}
+                        {featured.subheadline}
                     </p>
 
                     <p class="mt-3 text-sm font-medium text-slate-500">
-                        {featured.date}
+                        {fullDate(featured.createdAt)}
                     </p>
 
                     <div class="mt-5 flex justify-center gap-4">
@@ -222,14 +137,14 @@
                 </div>
 
                 <div>
-                <!-- Optional second image (as in mobile mock) -->
-                <img
-                        src={news_secondary}
-                        alt="Illustration complémentaire"
-                        class="px-5 mb-5 rounded-2xl object-cover  md:mb-6 object-contain"
-                        loading="lazy"
-                        decoding="async"
-                />
+                    <!-- Optional second image (as in mobile mock) -->
+                    <img
+                            alt="Illustration complémentaire"
+                            class="px-5 mb-5 rounded-2xl object-cover  md:mb-6 object-contain"
+                            decoding="async"
+                            loading="lazy"
+                            src={publicEnv.PUBLIC_IMAGE_BASE_URL + featured.image.url}
+                    />
                 </div>
             </article>
 
@@ -241,7 +156,7 @@
                     >
                         <img
                                 src={news_secondary}
-                                alt={p.title}
+                                alt={p.image.url}
                                 class="h-24 w-28 rounded object-contain"
                                 loading="lazy"
                                 decoding="async"
@@ -249,16 +164,16 @@
 
                         <div class="min-w-0">
                             <h3 class="text-[15px] font-semibold text-slate-800 line-clamp-2">
-                                {p.title}
+                                {p.headline}
                             </h3>
                             <p class="mt-1 text-[13px] text-slate-600 line-clamp-4 md:line-clamp-6">
-                                {p.excerpt}
+                                {p.subheadline}
                             </p>
 
                             <div class="mt-2 border-t border-slate-300/40 pt-2 text-[12px] text-slate-500">
-                                <span>{p.date}</span>
-                                {#if p.time}<span class="mx-2">{p.time}</span>{/if}
-                                {#if p.location}<span>{p.location}</span>{/if}
+                                <span>{shortDate(p.createdAt)}</span>
+                                {#if p.createdAt}<span class="mx-2">{shortTime(p.createdAt)}</span>{/if}
+                                {#if p.localisation}<span>{p.localisation}</span>{/if}
                             </div>
                         </div>
                     </article>

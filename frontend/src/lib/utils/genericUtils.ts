@@ -17,6 +17,13 @@ export function shortDate(iso: string): string {
         });
 }
 
+export function shortTime(iso: string): string {
+    return new Date(iso).toLocaleTimeString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
 export async function subscribeNewsLetter(email: string) {
     return await fetch('/api/subscribe', {
         method: 'POST',

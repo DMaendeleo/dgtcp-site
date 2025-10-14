@@ -10,11 +10,13 @@
     import type {Rapports} from "$lib/types/Rapport";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
     import {subscribeNewsLetter} from "$lib/utils/genericUtils";
+    import type {Annonces} from "$lib/types/Annonce";
 
 
     export let data
     const {rapports, news} = data
     const mRapports = rapports as Rapports
+    const mNews = news as Annonces
 
     // const mmmm = [
     //     {
@@ -98,7 +100,8 @@
         title={`Mission principale\nde la DGTCP`}
 />
 <ReportSection currentPage={1} mReports={mRapports.Rapports.docs} totalPages={6}/>
-<News/>
+<News featured={mNews.Annonces.docs[0]} leftPosts={mNews.Annonces.docs.slice(0, 4)}
+      rightPosts={mNews.Annonces.docs.slice(5, 10)}/>
 <NewsLetter onSubscribe={subscribeNewsLetter}/>
 <Footer/>
 

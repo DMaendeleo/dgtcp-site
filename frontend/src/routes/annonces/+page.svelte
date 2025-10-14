@@ -6,7 +6,7 @@
     import type {Annonces} from "$lib/types/Annonce";
     import {shortDate, fullDate, subscribeNewsLetter} from "$lib/utils/genericUtils";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
-    import { env as publicEnv } from '$env/dynamic/public';
+    import {env as publicEnv} from '$env/dynamic/public';
 
     export let data
     const {news} = data
@@ -50,11 +50,11 @@
             <li>
                 <button
                         class="rounded-full px-3 py-1 hover:cursor-pointer transition hover:text-slate-900"
-                        class:!text-blue-700={selectedYear === 'all'}
                         class:!bg-blue-50={selectedYear === 'all'}
+                        class:!text-blue-700={selectedYear === 'all'}
                         on:click={() => (selectedYear = 'all')}
                 >
-                   Tout
+                    Tout
                 </button>
             </li>
             {#each years as y}
@@ -103,7 +103,7 @@
                     </ul>
 
                     <div class="mt-6">
-                        <h3 class="text-sm font-semibold text-slate-700">Latest News</h3>
+                        <h3 class="text-sm font-extrabold text-slate-700">Latest News</h3>
                         <ul class="mt-3 space-y-4 hover:cursor-pointer">
                             {#each filtered.slice(0, 4) as n}
                                 <li class="flex gap-3">
@@ -153,8 +153,7 @@
                             <a
                                     href={"/annonces/" + oneNews.slug}
                                     class="rounded-xl px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                            >Voir plus </a
-                            >
+                            >Voir plus </a>
                             <button
                                     type="button"
                                     class="rounded-xl border px-4 py-2 text-sm font-semibold text-blue-700 border-blue-200 hover:bg-blue-50"
