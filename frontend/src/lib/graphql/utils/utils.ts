@@ -1,5 +1,5 @@
 // utils/graphql.ts
-import {PAYLOAD_DOCKER_GRAPHQL_URL} from "$lib/static/staticPaths";
+import {PAYLOAD_DOCKER_GRAPHQL_URL} from "$lib/utils/staticPaths";
 
 export async function fetchGraphQL<T = any>(
     query: string,

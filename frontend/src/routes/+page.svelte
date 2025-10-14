@@ -8,6 +8,8 @@
     // import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.jpg";
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
     import type {Rapports} from "$lib/types/Rapport";
+    import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
+    import {subscribeNewsLetter} from "$lib/utils/utils";
 
     export let data
     const {rapports, news} = data
@@ -96,5 +98,6 @@
 />
 <ReportSection currentPage={1} mReports={mRapports.Rapports.docs} totalPages={6}/>
 <News/>
+<NewsLetter onSubscribe={subscribeNewsLetter}/>
 <Footer/>
 

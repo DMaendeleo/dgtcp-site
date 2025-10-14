@@ -1,11 +1,12 @@
 <script lang="ts">
 
-
     import Header from "$lib/layouts/dgtcp/Header.svelte";
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
     import Twitter from "$lib/layouts/twittercard/Twitter.svelte";
     import type {Annonces} from "$lib/types/Annonce";
-    import {PAYLOAD_MEDIA_HEADER_PATH_URL} from "$lib/static/staticPaths";
+    import {PAYLOAD_MEDIA_HEADER_PATH_URL} from "$lib/utils/staticPaths";
+    import {shortDate, fullDate, subscribeNewsLetter} from "$lib/utils/utils";
+    import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
 
 
     export let data
@@ -13,70 +14,29 @@
 
     const mAnnonces = news as Annonces
 
-
     // Mock data — swap with your API results later.
-    type Announce = {
-        id: string;
-        title: string;
-        summary: string;
-        date: string;     // ISO
-        image: string;    // URL
-        year: number;
-    };
 
     const years = [2022, 2023, 2024, 2025];
 
     let selectedYear = 2025;
 
-    const all: Announce[] = [
-        {
-            id: "1",
-            title: "Activité de la DGTCP, Avril à septembre 2025",
-            summary:
-                "Mise en œuvre opérationnelle de la politique et régie budgétaire en termes de la réforme à la DGTCP",
-            date: "2025-09-21",
-            image:
-                "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop",
-            year: 2025
-        },
-        {
-            id: "2",
-            title: "Note d’information sur la régie budgétaire",
-            summary:
-                "Présentation des actions clés menées au deuxième trimestre et perspectives Q4.",
-            date: "2025-06-30",
-            image:
-                "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1600&auto=format&fit=crop",
-            year: 2025
-        },
-        // add more across years as needed…
-    ];
-
-    $: filtered = all.filter((a) => a.year === selectedYear);
-
-    function fmtDate(iso: string) {
-        return new Date(iso).toLocaleDateString("fr-FR", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit"
-        });
-    }
+    $: filtered = mAnnonces.Annonces.docs.filter((a) => a.year === selectedYear);
 
 
 </script>
-
 
 <Header/>
 
 <!-- PAGE -->
 <section class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
     <!-- Title -->
-    <header class="text-center">
-        <h1 class="text-3xl font-extrabold leading-tight tracking-tight text-blue-700 sm:text-5xl">
-            Annonces et activités <br class="hidden sm:block"/>
+    <header class="text-center my-20">
+        <h1 class="font-extrabold leading-tight tracking-tight text-[clamp(1.9rem,6vw,3.5rem)] text-blue-700">
+            Annonces et activités
+            <br class="block"/>
             <span class="text-blue-800">à la DGTCP</span>
         </h1>
-        <div class="mx-auto mt-4 h-px w-24 bg-blue-200"></div>
+        <div class="mx-auto mt-14 h-px w-24 bg-blue-200"></div>
     </header>
 
     <!-- Year tabs (scrollable on mobile) -->
@@ -136,15 +96,15 @@
                             {#each filtered.slice(0, 4) as n}
                                 <li class="flex gap-3">
                                     <img
-                                            src={n.image}
+                                            src={PAYLOAD_MEDIA_HEADER_PATH_URL + n.image.url}
                                             alt=""
                                             class="h-14 w-20 flex-none rounded-md object-cover ring-1 ring-slate-200"
                                     />
                                     <div class="min-w-0">
                                         <p class="line-clamp-2 text-xs font-medium text-slate-800">
-                                            {n.title}
+                                            {n.headline}
                                         </p>
-                                        <p class="mt-1 text-[11px] text-slate-500">{fmtDate(n.date)}</p>
+                                        <p class="mt-1 text-[11px] text-slate-500">{shortDate(n.createdAt)}</p>
                                     </div>
                                 </li>
                             {/each}
@@ -156,7 +116,7 @@
 
         <!-- CENTER FEED -->
         <main class="space-y-10">
-            {#each mAnnonces.Annonces.docs as oneNews}
+            {#each filtered as oneNews}
                 <article
                         class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200"
                 >
@@ -174,7 +134,7 @@
                             {oneNews.description}
                         </p>
                         <p class="pt-2 text-xs font-medium tracking-wide text-slate-500">
-                            {fmtDate(oneNews.createdAt)}
+                            {fullDate(oneNews.createdAt)}
                         </p>
 
                         <div class="mt-3 flex flex-wrap gap-3">
@@ -223,5 +183,5 @@
     }
 </style>
 
-
+<NewsLetter onSubscribe={subscribeNewsLetter}/>
 <Footer/>

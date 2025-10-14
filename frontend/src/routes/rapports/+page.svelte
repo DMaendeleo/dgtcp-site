@@ -6,10 +6,12 @@
     import type {Rapports} from '$lib/types/Rapport';
 
     import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.png";
+    import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
+    import {subscribeNewsLetter} from "$lib/utils/utils";
     // import type {Annonces} from "$lib/types/Annonce";
 
     export let data
-    const { rapports } = data
+    const {rapports} = data
 
     const mRapports = rapports as Rapports
 
@@ -135,12 +137,13 @@
 
     async function share(url?: string, title?: string) {
         try {
-            if (url && navigator.share) await navigator.share({ url, title });
+            if (url && navigator.share) await navigator.share({url, title});
             else if (url) await navigator.clipboard.writeText(url);
-        } catch {}
+        } catch {
+        }
     }
 
-    export let heading = "Rapports d'activités de la DGTCP";
+    // export let heading = "Rapports d'activités de la DGTCP";
 </script>
 
 <Header/>
@@ -148,22 +151,27 @@
 <!-- PAGE WRAPPER -->
 <div class="mx-auto max-w-7xl px-4 py-6 md:py-10">
 
-<!--    <div class="flex h-2 w-full">-->
-<!--        <div class="h-full w-1/3 bg-[#0054FF]" aria-hidden="true"></div>-->
-<!--        <div class="h-full w-1/3 bg-[#ffe100]" aria-hidden="true"></div>-->
-<!--        <div class="h-full w-1/3 bg-[#ff1e1e]" aria-hidden="true"></div>-->
-<!--    </div>-->
+
+    <!--    <header class="text-center my-20">-->
+    <!--        <h2-->
+    <!--                class="font-extrabold tracking-tight text-[clamp(1.9rem,6vw,3.5rem)]-->
+    <!--               leading-[1.05] text-[#1E66FF]"-->
+    <!--        >-->
+    <!--            {#each heading.split('\n') as line}-->
+    <!--                <span class="block">{line} </span>-->
+    <!--            {/each}-->
+    <!--        </h2>-->
+    <!--        <div class="mx-auto mt-14 h-[2px] w-40 bg-[#c9d7ff] md:w-128"></div>-->
+    <!--    </header>-->
 
     <header class="text-center my-20">
-        <h2
-                class="font-extrabold tracking-tight text-[clamp(1.9rem,6vw,3.5rem)]
-               leading-[1.05] text-[#1E66FF]"
-        >
-            {#each heading.split('\n') as line}
-                <span class="block">{line} </span>
-            {/each}
-        </h2>
-        <div class="mx-auto mt-14 h-[2px] w-40 bg-[#c9d7ff] md:w-128"></div>
+        <h1 class="font-extrabold leading-tight tracking-tight text-[clamp(1.9rem,6vw,3.5rem)] text-blue-700 ">
+            Rapports d'activités
+            <br class="block"/>
+            <!--            <br class="hidden sm:block"/>-->
+            <span class="text-blue-800">de la DGTCP</span>
+        </h1>
+        <div class="mx-auto mt-14 h-px w-24 bg-blue-200"></div>
     </header>
 
     <!-- GRID: mobile-first (1 col), desktop gets sidebar -->
@@ -187,7 +195,8 @@
                 <h3 class="mt-6 text-lg font-extrabold">Autres archives</h3>
                 <div class="mt-3 space-y-1">
                     {#each years.slice(1) as y}
-                        <a class="block rounded-lg px-3 py-2 text-sm transition hover:bg-white/10" href={yearHref(y)}>{y}</a>
+                        <a class="block rounded-lg px-3 py-2 text-sm transition hover:bg-white/10"
+                           href={yearHref(y)}>{y}</a>
                     {/each}
                 </div>
             </div>
@@ -213,7 +222,7 @@
                         <!-- folder / thumbnail -->
                         <div class="shrink-0">
                             <!-- Replace with your image if available -->
-<!--                            <div class="size-20 md:size-28 rounded-2xl bg-gradient-to-b from-blue-300 to-blue-500 shadow-inner"></div>-->
+                            <!--                            <div class="size-20 md:size-28 rounded-2xl bg-gradient-to-b from-blue-300 to-blue-500 shadow-inner"></div>-->
                             <div
                                     class="flex shrink-0 items-center justify-center rounded-[28px]
                    border-2 border-[#1E66FF] p-6 md:p-8"
@@ -230,7 +239,8 @@
 
                         <!-- text -->
                         <div class="min-w-0 flex-1">
-                            <a href={r.url} target="_blank" rel="noopener" class="block text-blue-700 font-semibold hover:underline line-clamp-2">
+                            <a href={r.url} target="_blank" rel="noopener"
+                               class="block text-blue-700 font-semibold hover:underline line-clamp-2">
                                 {r.title}
                             </a>
                             <p class="mt-1 text-sm text-gray-600 line-clamp-2">{r.description}</p>
@@ -274,7 +284,7 @@
                         ‹
                     </a>
 
-                    {#each Array.from({ length: totalPages }, (_, i) => i + 1) as p}
+                    {#each Array.from({length: totalPages}, (_, i) => i + 1) as p}
                         <a
                                 href={pageHref(p)}
                                 class="rounded-xl border px-3 py-2 text-sm hover:bg-blue-50 {p === page ? 'bg-blue-600 text-white border-blue-600' : ''}">
@@ -295,4 +305,6 @@
     </div>
 </div>
 
-<Footer />
+<NewsLetter onSubscribe={subscribeNewsLetter}/>
+
+<Footer/>

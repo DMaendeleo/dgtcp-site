@@ -97,8 +97,8 @@
             <nav class="lg:hidden bg-sky-50 px-4 py-3 space-y-2">
                 <a href="/" class="block">Accueil</a>
                 <a href="/" class="block">A propos</a>
-                <a href="/" class="block">Rapports</a>
-                <a href="/" class="block">Actualités</a>
+                <a href="/rapports" class="block">Rapports</a>
+                <a href="/annonces" class="block">Actualités</a>
                 <a href="/" class="block">Contacts</a>
                 <button class="text-blue-900">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
