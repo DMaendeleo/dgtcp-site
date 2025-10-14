@@ -119,8 +119,7 @@
 
         <button
                 aria-label="Like"
-                class="flex items-center gap-2 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-50"
-        >
+                class="flex items-center gap-2 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-50" >
             <svg
                     class="h-5 w-5"
                     id="vector"
@@ -135,10 +134,8 @@
             <span>{likes}</span>
         </button>
 
-        <button
-                aria-label="Share"
-                class="flex items-center gap-2 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-50"
-        >
+        <button aria-label="Share"
+                class="flex items-center gap-2 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-50" >
             <svg
                     class="h-5 w-5"
                     id="vector"
@@ -155,7 +152,6 @@
                         id="path_1"
                         stroke-width="1"/>
             </svg>
-
         </button>
     </footer>
 </article>

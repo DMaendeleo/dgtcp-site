@@ -7,13 +7,12 @@
     import {shortDate, fullDate, subscribeNewsLetter} from "$lib/utils/genericUtils";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
     import {env as publicEnv} from '$env/dynamic/public';
+    import HeroAnnonce from "$lib/layouts/annonces/HeroAnnonce.svelte";
 
     export let data
     const {news} = data
 
     const mAnnonces = news as Annonces
-
-    // Mock data — swap with your API results later.
 
     const years = [2023, 2024, 2025];
 
@@ -29,17 +28,21 @@
 
 <Header/>
 
+
+<HeroAnnonce />
+
 <!-- PAGE -->
 <section class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
     <!-- Title -->
-    <header class="text-center my-20">
-        <h1 class="font-extrabold leading-tight tracking-tight text-[clamp(1.9rem,6vw,3.5rem)] text-blue-700">
-            Annonces et activités
-            <br class="block"/>
-            <span class="text-blue-800">à la DGTCP</span>
-        </h1>
-        <div class="mx-auto mt-14 h-px w-24 bg-blue-200"></div>
-    </header>
+<!--    <header class="text-center my-20">-->
+<!--&lt;!&ndash;        <h1 class="font-extrabold leading-tight tracking-tight text-[clamp(1.9rem,6vw,3.5rem)] text-blue-700">&ndash;&gt;-->
+<!--&lt;!&ndash;            Annonces et activités&ndash;&gt;-->
+<!--&lt;!&ndash;            <br class="block"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="text-blue-800">à la DGTCP</span>&ndash;&gt;-->
+<!--&lt;!&ndash;        </h1>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mx-auto mt-14 h-px w-24 bg-blue-200"></div>&ndash;&gt;-->
+<!--    </header>-->
+
 
     <!-- Year tabs (scrollable on mobile) -->
     <nav
@@ -54,7 +57,7 @@
                         class:!text-blue-700={selectedYear === 'all'}
                         on:click={() => (selectedYear = 'all')}
                 >
-                    Tout
+                    Voir le Tout
                 </button>
             </li>
             {#each years as y}
