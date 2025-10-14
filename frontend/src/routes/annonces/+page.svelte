@@ -49,7 +49,7 @@
         <ul class="flex min-w-max items-center gap-4 text-sm font-semibold text-slate-500">
             <li>
                 <button
-                        class="rounded-full px-3 py-1 transition hover:text-slate-900"
+                        class="rounded-full px-3 py-1 hover:cursor-pointer transition hover:text-slate-900"
                         class:!text-blue-700={selectedYear === 'all'}
                         class:!bg-blue-50={selectedYear === 'all'}
                         on:click={() => (selectedYear = 'all')}
@@ -60,7 +60,7 @@
             {#each years as y}
                 <li>
                     <button
-                            class="rounded-full px-3 py-1 transition hover:text-slate-900"
+                            class="rounded-full px-3 py-1 transition hover:cursor-pointer hover:text-slate-900"
                             class:selectedYear={y === selectedYear}
                             on:click={() => (selectedYear = y)}
                             class:!text-blue-700={y === selectedYear}
@@ -104,7 +104,7 @@
 
                     <div class="mt-6">
                         <h3 class="text-sm font-semibold text-slate-700">Latest News</h3>
-                        <ul class="mt-3 space-y-4">
+                        <ul class="mt-3 space-y-4 hover:cursor-pointer">
                             {#each filtered.slice(0, 4) as n}
                                 <li class="flex gap-3">
                                     <img
@@ -139,7 +139,7 @@
                             loading="lazy"
                     />
                     <div class="space-y-2 p-5 sm:p-6">
-                        <h3 class="text-base font-extrabold text-slate-900 sm:text-lg">
+                        <h3 class="text-base font-extrabold text-slate-900 sm:text-lg hover:cursor-pointer">
                             {oneNews.headline}
                         </h3>
                         <p class="text-sm leading-relaxed text-slate-700  line-clamp-3">
@@ -153,7 +153,7 @@
                             <a
                                     href={"/annonces/" + oneNews.slug}
                                     class="rounded-xl px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                            >Voir plus</a
+                            >Voir plus </a
                             >
                             <button
                                     type="button"

@@ -4,16 +4,21 @@
     import Header from "$lib/layouts/dgtcp/Header.svelte";
     import Footer from "$lib/layouts/dgtcp/Footer.svelte";
     import type {Rapports} from '$lib/types/Rapport';
+    import type {Annonces} from "$lib/types/Annonce";
 
     import folder_icon_400 from "$lib/assets/dgtcp/folder-icon-400.png";
     import NewsLetter from "$lib/layouts/newsletter/NewsLetter.svelte";
-    import {subscribeNewsLetter} from "$lib/utils/genericUtils";
-    // import type {Annonces} from "$lib/types/Annonce";
+    import {shortDate, subscribeNewsLetter} from "$lib/utils/genericUtils";
+    import {env as publicEnv} from "$env/dynamic/public";
+
 
     export let data
-    const {rapports} = data
+    const {rapports, news} = data
 
     const mRapports = rapports as Rapports
+    const mNews = news as Annonces
+
+    $: filtered = mNews.Annonces.docs
 
     // const mRapports : Rapports = {
     //     Rapports : {
@@ -185,7 +190,7 @@
                     {#each years as y}
                         <a
                                 class="block rounded-lg px-3 py-2 text-sm transition
-                     hover:bg-white/10 {currentYear == y ? 'bg-white/10 font-semibold' : ''}"
+                     hover:bg-white/10 {currentYear === y ? 'bg-white/10 font-semibold' : ''}"
                                 href={yearHref(y)}>{y}</a>
                     {/each}
                 </div>
@@ -203,8 +208,26 @@
 
             <!-- Latest news placeholder box -->
             <div class="mt-6 rounded-2xl bg-white p-5 shadow-sm">
-                <h4 class="text-lg font-extrabold text-blue-700">Latest News</h4>
-                <p class="mt-2 text-sm text-gray-600">Branch this section to your news collection later.</p>
+
+                <h3 class="text-lg font-extrabold text-blue-700">Latest News</h3>
+                <p class="mt-1 text-sm text-gray-600">Retrouvez ici les dernières actualités sur la DGTCP</p>
+                <ul class="mt-5 space-y-4 hover:cursor-pointer">
+                    {#each filtered.slice(0, 5) as n}
+                        <li class="flex gap-3">
+                            <img
+                                    src={ publicEnv.PUBLIC_IMAGE_BASE_URL  + n.image.url}
+                                    alt=""
+                                    class="h-14 w-20 flex-none rounded-md object-cover ring-1 ring-slate-200"
+                            />
+                            <div class="min-w-0">
+                                <p class="line-clamp-2 text-xs font-medium text-slate-800">
+                                    {n.headline}
+                                </p>
+                                <p class="mt-1 text-[11px] text-slate-500">{shortDate(n.createdAt)}</p>
+                            </div>
+                        </li>
+                    {/each}
+                </ul>
             </div>
         </aside>
 
