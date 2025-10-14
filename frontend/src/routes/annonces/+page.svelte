@@ -129,7 +129,7 @@
                         <h3 class="text-base font-extrabold text-slate-900 sm:text-lg">
                             {oneNews.headline}
                         </h3>
-                        <p class="text-sm leading-relaxed text-slate-700">
+                        <p class="text-sm leading-relaxed text-slate-700  line-clamp-3">
                             {oneNews.description}
                         </p>
                         <p class="pt-2 text-xs font-medium tracking-wide text-slate-500">
