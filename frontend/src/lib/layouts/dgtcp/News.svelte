@@ -33,7 +33,7 @@
             </h2>
 
             <!-- Tri-color underline -->
-            <div class="mx-auto mt-4 flex h-1.5 w-44 overflow-hidden rounded-full sm:w-52">
+            <div class="mx-auto my-8 flex h-1.5 w-44 overflow-hidden rounded-full sm:w-52">
                 <div class="h-full w-1/3 bg-[#1d5ed6]"></div>
                 <div class="h-full w-1/3 bg-[#F2DE00]"></div>
                 <div class="h-full w-1/3 bg-[#ff1e1e]"></div>
@@ -182,7 +182,7 @@
         <!--            </div>-->
         <!--        </div>-->
 
-        <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
+        <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
             <!-- LEFT SIDEBAR (hidden on mobile) -->
             <aside class="hidden lg:block">
                 <div class="sticky top-8 space-y-6">

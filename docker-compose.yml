@@ -13,7 +13,7 @@ services:
     #    volumes:
     #      - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -64,6 +64,10 @@ services:
     environment:
       PAYLOAD_DOCKER_GRAPHQL_URL: ${PAYLOAD_DOCKER_GRAPHQL_URL}
       PUBLIC_IMAGE_BASE_URL: ${PUBLIC_IMAGE_BASE_URL_PROD}
+      PRIVATE_X_AUTHORIZATION_TOKEN: ${PRIVATE_X_AUTHORIZATION_TOKEN}
+      PUBLIC_MIN_FINANCE_X_ID: ${PUBLIC_MIN_FINANCE_X_ID}
+      PUBLIC_MIN_FINANCE_X_NAME: ${PUBLIC_MIN_FINANCE_X_NAME}
+      PUBLIC_MIN_FINANCE_X_USERNAME: ${PUBLIC_MIN_FINANCE_X_USERNAME}
       NODE_ENV: production
       HOST: 0.0.0.0
       PORT: 4001
